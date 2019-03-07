@@ -1,10 +1,41 @@
-
+var draw=function()
+{
   var dataP=d3.json("data.json")
   dataP.then(function(data)
   {
     console.log("data",data)
     drawGraph(data,1000,600);
+  },
+  function(err)
+  {
+    console.log(err);
+  }
+);
+document.getElementById("button1").disabled = true;
+}
+
+var draw1=function()
+{
+  var dataP=d3.json("data.json")
+  dataP.then(function(data)
+  {
+    console.log("data",data)
     drawGraph(data,400,400);
+  },
+  function(err)
+  {
+    console.log(err);
+  }
+);
+document.getElementById("button2").disabled = true;
+}
+
+var draw2=function()
+{
+  var dataP=d3.json("data.json")
+  dataP.then(function(data)
+  {
+    console.log("data",data)
     drawGraph(data,800,600);
   },
   function(err)
@@ -12,7 +43,8 @@
     console.log(err);
   }
 );
-
+document.getElementById("button3").disabled = true;
+}
 
 
 var drawGraph=function(data,w,d)
@@ -29,7 +61,7 @@ var drawGraph=function(data,w,d)
   {
     top:10,
     bottom:50,
-    left:10,
+    left:35,
     right:70
   }
   var width=scren.width-margins.left-margins.right;
@@ -88,8 +120,12 @@ var drawGraph=function(data,w,d)
              .text(function(d){ return d.name;});
 
   var xAxis=d3.axisBottom(xScale);
+  var yAxis=d3.axisLeft(yScale);
 
   svg.append("g").classed("xAxis",true)
      .call(xAxis)
      .attr("transform","translate("+margins.left+","+(margins.top+height+10)+")");
+  svg.append("g").classed("yAxis",true)
+     .call(yAxis)
+     .attr("transform","translate("+(margins.left-10)+","+(margins.top)+")");
 };
