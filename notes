@@ -1,0 +1,5 @@
+Using the dataset provided, create a well crafted scatterplot visualization. 
+Create your visualization with a function that takes width and height as 
+parameters (as well as any other parameters you might need). Your web site 
+should display the visualization at 3 different widths and heights, and still look good.
+
