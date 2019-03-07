@@ -1,5 +1,5 @@
 
-  var dataP=d3.json("data.json");
+  var dataP=d3.json("data.json")
   dataP.then(function(data)
   {
     console.log("data",data)
@@ -10,19 +10,19 @@
     console.log(err);
   }
 );
-  //document.getElementById("button1").disabled = true;
+
 
 
 var drawGraph=function(data)
 {
-  var screen=
+  var scren=
   {
     width:500,
     height:400
   };
   var svg=d3.select("svg")
-            .attr("width",screen.width)
-            .attr("width",screen.height)
+            .attr("width",scren.width)
+            .attr("height",scren.height)
   var margins=
   {
     top:10,
@@ -30,8 +30,8 @@ var drawGraph=function(data)
     left:10,
     right:50
   }
-  var width=screen.width-margins.left-margins.right;
-  var height=screen.height-margins.top-margins.bottom;
+  var width=scren.width-margins.left-margins.right;
+  var height=scren.height-margins.top-margins.bottom;
 
   //scales usually go here
   var xScale=d3.scaleLinear()
@@ -44,48 +44,50 @@ var drawGraph=function(data)
   //plot land
 
   var plotLand =svg.append("g")
-                  .classed("plot",true);
+                  .classed("plot",true)
                   .attr("transform","translate("+margins.left+","+margins.top+")");
 
   var students=plotLand.selectAll("g")
                        .data(data)
                        .enter()
-                       .append("g");
-                       .attr("fill",function(d){ return colors(d.name)})
+                       .append("g")
+                       .attr("fill",function(d){ return colors(d.name)});
 
   students.selectAll("circle")
           .data(function(d){return d.grades})
           .enter()
           .append("circle")
-          .attr("cx",function(d,i){return xScale(i)})
-          .attr("cy",function(d,i){return yScale(d)})
-          .attr("r",5);
+          .attr("cx",function(d,i){return xScale(i);})
+          .attr("cy",function(d,i){return yScale(d);})
+          .attr("r",10);
   //the legend...
   var legend=svg.append("g")
-                .classed("legend",true);
-                .attr("transform","translate("+width+margins.left+","+margins.top+")");
+                .classed("legend",true)
+                .attr("transform","translate("+(width+margins.left)+","+margins.top+")");
 
   var legendLines=legend.selectAll("g")
                         .data(data)
                         .enter()
                         .append("g")
                         .classed("legendLine",true)
-                        .attr("tranform",function(d,i){
+                        .attr("transform",function(d,i){
                         return "translate(0,"+(i*20)+")";});
+
   legendLines.append("rect")
              .attr("x",0)
              .attr("y",0)
              .attr("width",10)
              .attr("height",10)
-             .attr("fill",function(d){return colors(d.name);})
+             .attr("fill",function(d){return colors(d.name);});
+
   legendLines.append("text")
              .attr("x",20)
-             .attr("y",0)
-             .text(funtion(d){return d.name;});
+             .attr("y",10)
+             .text(function(d){ return d.name;});
 
   var xAxis=d3.axisBottom(xScale);
 
   svg.append("g").classed("xAxis",true)
      .call(xAxis)
      .attr("transform","translate("+margins.left+","+(margins.top+height+10)+")");
-}
+};
