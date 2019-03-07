@@ -26,9 +26,9 @@ var drawGraph=function(data)
   var margins=
   {
     top:10,
-    bottom:10,
+    bottom:50,
     left:10,
-    right:10
+    right:50
   }
   var width=screen.width-margins.left-margins.right;
   var height=screen.height-margins.top-margins.bottom;
@@ -61,5 +61,31 @@ var drawGraph=function(data)
           .attr("cy",function(d,i){return yScale(d)})
           .attr("r",5);
   //the legend...
-  
+  var legend=svg.append("g")
+                .classed("legend",true);
+                .attr("transform","translate("+width+margins.left+","+margins.top+")");
+
+  var legendLines=legend.selectAll("g")
+                        .data(data)
+                        .enter()
+                        .append("g")
+                        .classed("legendLine",true)
+                        .attr("tranform",function(d,i){
+                        return "translate(0,"+(i*20)+")";});
+  legendLines.append("rect")
+             .attr("x",0)
+             .attr("y",0)
+             .attr("width",10)
+             .attr("height",10)
+             .attr("fill",function(d){return colors(d.name);})
+  legendLines.append("text")
+             .attr("x",20)
+             .attr("y",0)
+             .text(funtion(d){return d.name;});
+
+  var xAxis=d3.axisBottom(xScale);
+
+  svg.append("g").classed("xAxis",true)
+     .call(xAxis)
+     .attr("transform","translate("+margins.left+","+(margins.top+height+10)+")");
 }
