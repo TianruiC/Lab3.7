@@ -28,7 +28,7 @@ var drawGraph=function(data)
     top:10,
     bottom:50,
     left:10,
-    right:50
+    right:70
   }
   var width=scren.width-margins.left-margins.right;
   var height=scren.height-margins.top-margins.bottom;
