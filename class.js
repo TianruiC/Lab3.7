@@ -3,7 +3,9 @@
   dataP.then(function(data)
   {
     console.log("data",data)
-    drawGraph(data);
+    drawGraph(data,1000,600);
+    drawGraph(data,400,400);
+    drawGraph(data,800,600);
   },
   function(err)
   {
@@ -13,14 +15,14 @@
 
 
 
-var drawGraph=function(data)
+var drawGraph=function(data,w,d)
 {
   var scren=
   {
-    width:500,
-    height:400
+    width:w,
+    height:d
   };
-  var svg=d3.select("svg")
+  var svg=d3.select("body").append("svg")
             .attr("width",scren.width)
             .attr("height",scren.height)
   var margins=
